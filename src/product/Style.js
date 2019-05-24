@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flexDirection: 'column'
   },
   imageStyle: {
-    height: 140,
+    height: 180,
     width: null,
     flex: 1
   },

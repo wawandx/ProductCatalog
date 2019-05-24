@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, Image, View } from 'react-native';
+import { Text, Image, View, TouchableOpacity } from 'react-native';
+import { HeaderBackButton } from 'react-navigation';
 import Style from './Style';
 
 const DetailProduct = (product) => {
-  //console.log(product.navigation.state);
   const { id, productName, productPrice, productImage } = product.navigation.state.params;
   const { 
     containerStyle,
@@ -11,7 +11,6 @@ const DetailProduct = (product) => {
     textStyle
   } = Style;
 
-  console.log(DetailProduct.navigationOptions);
   return (
     <View style={containerStyle}>
       <Text style= { textStyle }>{productName}</Text>
@@ -24,12 +23,15 @@ const DetailProduct = (product) => {
   );
 };
 
-DetailProduct.navigationOptions = {
-  title: 'Detail Page',
-  headerTintColor: '#444649',
-  headerTitleStyle: {
-    fontWeight: 'normal'
-  },
-  headerLayoutPreset: 'center',
+DetailProduct.navigationOptions = ({ navigation }) => {
+  return {
+    title: 'Detail Product',
+    headerTitleStyle: {
+      textAlign: 'center',
+      flexGrow: 1,
+      alignSelf: 'center'
+    }
+  };
 }
+
 export default DetailProduct;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { TouchableOpacity, FlatList } from 'react-native';
 import Style from './Style';
 import Products from './Products';
@@ -7,48 +7,47 @@ import Products from './Products';
 const { flatStyle } = Style;
 const numColumns = 2;
 
-class Catalog extends React.Component {
-  static navigationOptions = {
-    header: null
-  };
-  state = { products : [] };
+function Catalog(props) {
+  const [products, setProducts] = useState([]);
 
-  componentWillMount() {
+  useEffect(() => {
     fetch('https://product-catalog-api.herokuapp.com/products/')
     .then((response) => response.json())
     .then((responseJson) => {
-      this.setState({ products : responseJson.result });
-      //console.log(responseJson.result);
+      setProducts(responseJson.result);
     })
     .catch((error) => {
         console.error(error);
     });
-  }
+  });
 
-  renderProducts({ item, index}) {
+  function renderProducts({ item, index}) {
     //console.log(this);
     return (
-      <TouchableOpacity key={item.id} onPress={() => this.moveScreen(item)}>
+      <TouchableOpacity key={item.id} onPress={() => moveScreen(item)}>
         <Products product={item}/>
       </TouchableOpacity>
     );
   }
-  
-  moveScreen = (product) => {
-    this.props.navigation.navigate('DetailProduct', { ...product })
+
+  function moveScreen (product) {
+    console.log(props)
+    props.navigation.navigate('DetailProduct', { ...product })
   }
 
-  render() {
-    return (
-      <FlatList 
-        style= {flatStyle}
-        data= {this.state.products}
-        renderItem= {this.renderProducts.bind(this)}
-        numColumns= {numColumns}
-        keyExtractor={(item, index) => item.id}
-      />
-    )
-  }
+  return (
+    <FlatList 
+      style= {flatStyle}
+      data= {products}
+      renderItem= {renderProducts}
+      numColumns= {numColumns}
+      keyExtractor={(item, index) => item.id}
+    />
+  )
+}
+
+Catalog.navigationOptions = {
+  header : null
 }
 
 export default Catalog;

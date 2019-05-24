@@ -6,7 +6,7 @@ function Splash(props) {
   const {viewStyle,textStyle} = Style;
   return (
     <View style={viewStyle}>
-      <Text style={textStyle} onPress={()=>props.navigation.replace('Catalog')}>Simple Catalog</Text>
+      <Text style={textStyle} onPress={()=>props.navigation.replace('Catalog')}>SIMPLE CATALOG</Text>
     </View>
   );
 }
